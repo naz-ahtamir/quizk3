@@ -14,7 +14,6 @@ import { getDatabase, ref, set, get, push, onValue, update, remove, serverTimest
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // ─── FIREBASE CONFIG ───────────────────────────────────────────────
-// GANTI dengan config Firebase kamu!
 const firebaseConfig = {
   apiKey: "AIzaSyBBKFwATgvXKc0n6TQW7nBj15B3vpukF9w",
   authDomain: "lombalari-16c05.firebaseapp.com",
@@ -901,32 +900,11 @@ function show(id) {
 }
 
 // ─── LANDING ─────────────────────────────────────────────────────────
-function goHost()   { S.role = 'host';   show('s-firebase'); }
+function goHost()   { S.role = 'host'; show('s-editor'); }
 function goPlayer() { S.role = 'player'; buildAvatarGrid(); show('s-join'); }
 
-// ─── FIREBASE CONFIG ─────────────────────────────────────────────────
-function applyFirebaseConfig() {
-  const raw = document.getElementById('fb-config-input').value.trim();
-  const errEl = document.getElementById('fb-error');
-  errEl.style.display = 'none';
-  try {
-    const cfg = JSON.parse(raw);
-    if (!cfg.databaseURL) throw new Error('databaseURL wajib ada!');
-    // Dynamically re-init Firebase with user config
-    const { initializeApp } = window._fbModules || {};
-    // Store config for later use
-    window._userFirebaseConfig = cfg;
-    errEl.style.display = 'none';
-    // Try a quick DB test
-    const db = window._db;
-    const { ref, set } = window._dbFns;
-    set(ref(db, '.info/connected'), null).catch(() => {});
-    show('s-editor');
-  } catch(e) {
-    errEl.textContent = '⚠ ' + e.message;
-    errEl.style.display = 'block';
-  }
-}
+// ─── FIREBASE CONFIG (tidak dipakai lagi, config sudah hardcode) ─────
+function applyFirebaseConfig() { show('s-editor'); }
 
 // ─── QUESTION EDITOR ─────────────────────────────────────────────────
 let questions = [];
